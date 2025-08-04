@@ -45,7 +45,7 @@ export function CreateEmployeeModal({ show, onClose, onSave, setToast }: CreateM
     if (!show) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-40">
             <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-8 relative border border-gray-200">
                 <h2 className="text-xl font-bold mb-2">Create Employee</h2>
                 <p className="text-sm text-gray-500 mb-6">You can create a profile here. Click save when you're done.</p>

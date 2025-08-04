@@ -62,7 +62,7 @@ export function EditEmployeeModal({ employee, onClose, onSave, setToast }: EditM
     };
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40">
+        <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-40">
             <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-8 relative border border-gray-200">
                 <h2 className="text-xl font-bold mb-2">Edit Employee</h2>
                  {modalError && <div className="mb-2 text-red-600 text-sm font-medium">{modalError}</div>}

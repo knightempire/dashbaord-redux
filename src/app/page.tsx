@@ -8,8 +8,8 @@ import Image from "next/image";
 
 // Redux imports
 import { useDispatch, useSelector } from 'react-redux';
-import { setAuthLoading, loginSuccess, loginFailure } from '@/lib/redux/slices/authSlice';
-import { RootState, AppDispatch } from '@/lib/redux/store';
+import { setAuthLoading, loginSuccess, loginFailure } from '@/lib/store/slices/authSlice';
+import { RootState, AppDispatch } from '@/lib/store/store';
 
 
 export default function LoginPage() {
@@ -38,7 +38,7 @@ export default function LoginPage() {
 
       console.log("Firebase JWT token:", token);
       console.log("User info:", userInfo);
-      router.push("/employees"); // Or your dashboard route
+      router.push("/dashboard"); // Or your dashboard route
     } catch (error: any) {
       alert("Google login failed");
       dispatch(loginFailure(error.message || "An unknown error occurred"));
