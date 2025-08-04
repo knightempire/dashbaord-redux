@@ -9,38 +9,28 @@ import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
 import { HiMagnifyingGlass } from "react-icons/hi2";
 import { HelpCircle } from "lucide-react";
 import { Download, CircleDashed, Plus } from "lucide-react";
-// Custom filter icon
-function FilterIcon() {
-  return (
-    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2">
-      <rect x="3" y="6" width="16" height="2.2" rx="1.1" fill="#6B7280" />
-      <rect x="5" y="10" width="12" height="2.2" rx="1.1" fill="#6B7280" />
-      <rect x="7" y="14" width="8" height="2.2" rx="1.1" fill="#6B7280" />
-      <rect x="9" y="18" width="4" height="2.2" rx="1.1" fill="#6B7280" />
-    </svg>
-  );
-}
-import React from "react";
+
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-
 export default function EmployeeTable() {
-    const [activeTab, setActiveTab] = React.useState<'all' | 'deleted'>('all');
-    const [users, setUsers] = React.useState<any[]>([]);
-    const [deletedUsers, setDeletedUsers] = React.useState<any[]>([]);
-    const [total, setTotal] = React.useState(0);
-    const [page, setPage] = React.useState(1);
-    const [limit] = React.useState(10);
-    const [loading, setLoading] = React.useState(false);
+    const [activeTab, setActiveTab] = useState<'all' | 'deleted'>('all');
+    const [users, setUsers] = useState<any[]>([]);
+    const [deletedUsers, setDeletedUsers] = useState<any[]>([]);
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const [limit] = useState(10);
+    const [loading, setLoading] = useState(false);
     // Modal state
-    const [showModal, setShowModal] = React.useState(false);
-    const [firstName, setFirstName] = React.useState("");
-    const [lastName, setLastName] = React.useState("");
-    const [modalError, setModalError] = React.useState("");
-    const [modalSuccess, setModalSuccess] = React.useState("");
-    const [showSuccessToast, setShowSuccessToast] = React.useState(false);
-    const [editModalError, setEditModalError] = React.useState("");
-    const [actionMenuId, setActionMenuId] = React.useState<number | null>(null);
+    const [showModal, setShowModal] = useState(false);
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [modalError, setModalError] = useState("");
+    const [modalSuccess, setModalSuccess] = useState("");
+    const [showSuccessToast, setShowSuccessToast] = useState(false);
+    const [editModalError, setEditModalError] = useState("");
+    const [actionMenuId, setActionMenuId] = useState<number | null>(null);
+    const [searchQuery, setSearchQuery] = useState("");
     type EditModalType = {
         id: number;
         firstName: string;
@@ -57,16 +47,16 @@ export default function EmployeeTable() {
         department: string;
         teams: string;
     };
-    const [editModal, setEditModal] = React.useState<EditModalType | null>(null);
-    const [deletedPage, setDeletedPage] = React.useState(1);
+    const [editModal, setEditModal] = useState<EditModalType | null>(null);
+    const [deletedPage, setDeletedPage] = useState(1);
     const deletedLimit = 10;
 
-    React.useEffect(() => {
+    useEffect(() => {
         setLoading(true);
         axios.get(`https://dummyjson.com/users?limit=${limit}&skip=${(page-1)*limit}`)
             .then(res => {
                 // Add random status to each user
-                const usersWithStatus = res.data.users.map(u => ({
+                const usersWithStatus = res.data.users.map((u: any) => ({
                     ...u,
                     status: Math.random() > 0.5 // true = Active, false = Inactive
                 }));
@@ -77,6 +67,20 @@ export default function EmployeeTable() {
             })
             .finally(() => setLoading(false));
     }, [page]);
+
+
+    // Custom filter icon
+function FilterIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2">
+      <rect x="3" y="6" width="16" height="2.2" rx="1.1" fill="#6B7280" />
+      <rect x="5" y="10" width="12" height="2.2" rx="1.1" fill="#6B7280" />
+      <rect x="7" y="14" width="8" height="2.2" rx="1.1" fill="#6B7280" />
+      <rect x="9" y="18" width="4" height="2.2" rx="1.1" fill="#6B7280" />
+    </svg>
+  );
+}
+
 
     return (
         <div>
@@ -132,6 +136,8 @@ export default function EmployeeTable() {
                         <Input 
                             placeholder="Search Employee by name, role, ID or any related keywords" 
                             className="w-full h-12 pl-10 border-none shadow-none focus:border-none focus:ring-0 focus:outline-none focus-visible:border-none focus-visible:ring-0 focus-visible:outline-none active:border-none active:ring-0 active:outline-none hover:border-none hover:ring-0 hover:outline-none ring-0 outline-none" 
+                            value={searchQuery}
+                            onChange={e => setSearchQuery(e.target.value)}
                         />
                     </div>
                     <Button variant="outline" className="h-10 flex items-center gap-2">
@@ -172,8 +178,22 @@ export default function EmployeeTable() {
                                     <TableRow>
                                         <TableCell colSpan={7} className="text-center py-8">Loading...</TableCell>
                                     </TableRow>
-                                ) : users.map((emp, i) => (
-                                    <TableRow key={emp.id} className="border-b border-gray-200 align-middle [&>td]:py-4">
+                                ) : users
+                                    .filter(emp => {
+                                        if (!searchQuery.trim()) return true;
+                                        const q = searchQuery.trim().toLowerCase();
+                                        return (
+                                            (emp.firstName && emp.firstName.toLowerCase().includes(q)) ||
+                                            (emp.lastName && emp.lastName.toLowerCase().includes(q)) ||
+                                            (emp.email && emp.email.toLowerCase().includes(q)) ||
+                                            (emp.id && String(emp.id).toLowerCase().includes(q)) ||
+                                            (emp.company?.title && emp.company.title.toLowerCase().includes(q)) ||
+                                            (emp.company?.department && emp.company.department.toLowerCase().includes(q)) ||
+                                            (emp.company?.name && emp.company.name.toLowerCase().includes(q))
+                                        );
+                                    })
+                                    .map((emp, i) => (
+                                        <TableRow key={emp.id} className="border-b border-gray-200 align-middle [&>td]:py-4">
                                         <TableCell className="w-8 pl-6">
                                             <input type="checkbox" className="accent-gray-500 w-4 h-4" />
                                         </TableCell>
