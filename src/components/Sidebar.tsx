@@ -21,7 +21,7 @@ export default function Sidebar() {
             </div>
             <div className="pl-7 flex flex-col gap-4 ">
               <span className="font-bold text-sm flex items-center gap-2 text-black pl-4">
-                <span className="w-2 h-2 rounded-full bg-black inline-block mr-2" />
+                <span className="w-2 h-2 rounded-full  inline-block mr-2" />
                 All Employees
               </span>
               <span className="text-sm text-[#7B8794] flex items-center gap-2 pl-4">
