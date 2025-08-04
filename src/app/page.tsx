@@ -1,39 +1,51 @@
+// app/login/page.tsx
 "use client";
 import GoogleIcon from "../icons/GoogleIcon";
 import { auth, provider, signInWithPopup } from "../firebaseConfig";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
 import FacebookIcon from "../icons/FacebookIcon";
 import Image from "next/image";
 
+// Redux imports
+import { useDispatch, useSelector } from 'react-redux';
+import { setAuthLoading, loginSuccess, loginFailure } from '@/lib/redux/slices/authSlice';
+import { RootState, AppDispatch } from '@/lib/redux/store';
+
+
 export default function LoginPage() {
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading } = useSelector((state: RootState) => state.auth);
 
   const handleGoogleLogin = async () => {
-    setLoading(true);
+    dispatch(setAuthLoading(true)); // Dispatch loading action
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
       const token = await user.getIdToken(); // Firebase JWT
-      localStorage.setItem("token", token);
+      
       const userInfo = {
         uid: user.uid,
         email: user.email,
         displayName: user.displayName,
         photoURL: user.photoURL,
       };
+
+      // Store in localStorage and dispatch to Redux
+      localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(userInfo));
+      dispatch(loginSuccess({ user: userInfo, token }));
+
       console.log("Firebase JWT token:", token);
       console.log("User info:", userInfo);
-      router.push("/dashboard");
-    } catch (error) {
+      router.push("/employees"); // Or your dashboard route
+    } catch (error: any) {
       alert("Google login failed");
-    } finally {
-      setLoading(false);
+      dispatch(loginFailure(error.message || "An unknown error occurred"));
     }
   };
 
+  // The rest of your JSX remains exactly the same
   return (
     <div className="min-h-screen w-full bg-white flex items-center justify-center px-2">
       <div className="flex flex-col md:flex-row w-full min-h-screen">
@@ -126,7 +138,7 @@ export default function LoginPage() {
               </button>
             </div>
             <p className="text-center text-xs text-gray-500 mt-4">
-              Don&apos;t you have an account?{" "}
+              Don't you have an account?{" "}
               <a
                 href="#"
                 className="text-blue-500 hover:underline"
