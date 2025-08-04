@@ -1,8 +1,39 @@
+"use client";
 import GoogleIcon from "../icons/GoogleIcon";
+import { auth, provider, signInWithPopup } from "../firebaseConfig";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 import FacebookIcon from "../icons/FacebookIcon";
 import Image from "next/image";
 
 export default function LoginPage() {
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+
+  const handleGoogleLogin = async () => {
+    setLoading(true);
+    try {
+      const result = await signInWithPopup(auth, provider);
+      const user = result.user;
+      const token = await user.getIdToken(); // Firebase JWT
+      localStorage.setItem("token", token);
+      const userInfo = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName,
+        photoURL: user.photoURL,
+      };
+      localStorage.setItem("user", JSON.stringify(userInfo));
+      console.log("Firebase JWT token:", token);
+      console.log("User info:", userInfo);
+      router.push("/dashboard");
+    } catch (error) {
+      alert("Google login failed");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen w-full bg-white flex items-center justify-center px-2">
       <div className="flex flex-col md:flex-row w-full min-h-screen">
@@ -80,9 +111,14 @@ export default function LoginPage() {
               <div className="flex-grow h-px bg-gray-200" />
             </div>
             <div className="flex flex-col gap-2">
-              <button className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-md py-2 font-medium hover:bg-gray-50 transition">
+              <button
+                type="button"
+                className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-md py-2 font-medium hover:bg-gray-50 transition disabled:opacity-60"
+                onClick={handleGoogleLogin}
+                disabled={loading}
+              >
                 <GoogleIcon />
-                Sign in with Google
+                {loading ? "Signing in..." : "Sign in with Google"}
               </button>
               <button className="w-full flex items-center justify-center gap-2 border border-gray-300 rounded-md py-2 font-medium hover:bg-gray-50 transition">
                 <FacebookIcon />
