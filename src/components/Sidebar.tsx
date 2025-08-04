@@ -46,7 +46,15 @@ export default function Sidebar() {
       </div>
       <div className="mb-2">
         <hr className="mb-4 border-gray-200" />
-        <Button variant="ghost" className="w-full flex items-center justify-start gap-2 text-[#183B4A] text-base font-medium px-3 py-2">
+        <Button
+          variant="ghost"
+          className="w-full flex items-center justify-start gap-2 text-[#183B4A] text-base font-medium px-3 py-2"
+          onClick={() => {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+            window.location.href = "/";
+          }}
+        >
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5">
             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15" />
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 15.75l3-3m0 0l-3-3m3 3H8.25" />
