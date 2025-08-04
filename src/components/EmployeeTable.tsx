@@ -1,3 +1,4 @@
+"use client";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
@@ -5,6 +6,21 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 // Removed unused Badge import
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi";
+import { HiMagnifyingGlass } from "react-icons/hi2";
+import { HelpCircle } from "lucide-react";
+import { Download, CircleDashed, Plus } from "lucide-react";
+// Custom filter icon
+function FilterIcon() {
+  return (
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg" className="mr-2">
+      <rect x="3" y="6" width="16" height="2.2" rx="1.1" fill="#6B7280" />
+      <rect x="5" y="10" width="12" height="2.2" rx="1.1" fill="#6B7280" />
+      <rect x="7" y="14" width="8" height="2.2" rx="1.1" fill="#6B7280" />
+      <rect x="9" y="18" width="4" height="2.2" rx="1.1" fill="#6B7280" />
+    </svg>
+  );
+}
+import React from "react";
 
 const employees = [
     {
@@ -82,13 +98,67 @@ const employees = [
 ];
 
 export default function EmployeeTable() {
+    const [activeTab, setActiveTab] = React.useState<'all' | 'deleted'>('all');
+
+    // Show same data in both tabs
+    const shownEmployees = employees;
+
     return (
         <div>
-            <div className="flex items-center gap-2 mb-4">
-                <Input placeholder="Search Employee by name, role, ID or any related keywords" className="w-full" />
-                <Button variant="outline">Filter</Button>
+            {/* Header and Tabs */}
+            <div className="mb-2">
+                <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                        <span className="text-2xl font-bold text-[#1a253c]">Employees</span>
+                        <HelpCircle size={20} strokeWidth={2} className="text-gray-400 cursor-pointer" />
+                        <span className="inline-flex items-center px-2 py-0.5 rounded-full bg-[#faf7fb] text-[#b71c1c] text-xs font-semibold">100</span>
+                    </div>
+                    <div className="flex gap-2">
+                        <Button variant="outline" className="flex items-center gap-2 font-medium">
+                            <Download size={16} strokeWidth={2} className="text-[#1a253c]" />
+                            Export
+                        </Button>
+                        <Button className="bg-[#1a253c] text-white flex items-center gap-2 font-medium relative">
+                            <span className="relative inline-flex items-center justify-center">
+                                <Plus size={22} strokeWidth={2} className="text-white" />
+                            </span>
+                            New Employee
+                        </Button>
+                    </div>
+                </div>
+                <div className="flex gap-8 text-lg font-medium mb-2 mt-4">
+                    <button
+                        className={activeTab === 'all' ? "text-[#1a253c] border-b-2 border-[#1a253c] pb-1" : "text-[#6b7280] pb-1"}
+                        onClick={() => setActiveTab('all')}
+                    >
+                        All Employees
+                    </button>
+                    <button
+                        className={activeTab === 'deleted' ? "text-[#1a253c] border-b-2 border-[#1a253c] pb-1" : "text-[#6b7280] pb-1"}
+                        onClick={() => setActiveTab('deleted')}
+                    >
+                        Deleted Employees
+                    </button>
+                </div>
             </div>
-            <Separator className="mb-4" />
+            <div className="mb-4">
+                <div className="flex items-center gap-2 h-16 border bg-white rounded-lg px-6 py-4 shadow-sm">
+                    <div className="relative w-full">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none">
+                            <HiMagnifyingGlass className="w-5 h-5" />
+                        </span>
+                        <Input 
+                            placeholder="Search Employee by name, role, ID or any related keywords" 
+                            className="w-full h-12 pl-10 border-none shadow-none focus:border-none focus:ring-0 focus:outline-none focus-visible:border-none focus-visible:ring-0 focus-visible:outline-none active:border-none active:ring-0 active:outline-none hover:border-none hover:ring-0 hover:outline-none ring-0 outline-none" 
+                        />
+                    </div>
+                    <Button variant="outline" className="h-10 flex items-center gap-2">
+                        <FilterIcon />
+                        Filter
+                    </Button>
+                </div>
+            </div>
+ 
             <div className="border border-gray-200 rounded-lg overflow-hidden">
                 <Table>
                     <TableHeader>
@@ -98,14 +168,19 @@ export default function EmployeeTable() {
                             </TableHead>
                             <TableHead>Name</TableHead>
                             <TableHead>Employee ID</TableHead>
-                            <TableHead>Role</TableHead>
+                            <TableHead>
+                                <span className="flex items-center gap-1">
+                                    Role
+                                    <HelpCircle size={20} strokeWidth={2} className="text-gray-400 cursor-pointer" />
+                                </span>
+                            </TableHead>
                             <TableHead>Status</TableHead>
                             <TableHead>Teams</TableHead>
                             <TableHead className="w-8 text-center"></TableHead>
                         </TableRow>
                     </TableHeader>
                     <TableBody>
-                        {employees.map((emp, i) => (
+                        {shownEmployees.map((emp, i) => (
                             <TableRow key={i} className="border-b border-gray-200 align-middle [&>td]:py-4">
                                 <TableCell className="w-8 pl-6">
                                     <input type="checkbox" className="accent-gray-500 w-4 h-4" />
@@ -117,6 +192,7 @@ export default function EmployeeTable() {
                                                 <AvatarImage src={emp.avatar} />
                                                 <AvatarFallback className="bg-[#fff2ea] text-[#93312b] font-bold">{emp.name.split(" ").map((n) => n[0]).join("")}</AvatarFallback>
                                             </Avatar>
+                                            {/* Status dot logic can be improved if needed */}
                                             {i === 2 && (
                                                 <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
                                             )}
