@@ -1,4 +1,4 @@
-// app/employees/page.tsx
+
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -7,7 +7,7 @@ import { EmployeeTabs } from "@/components/EmployeeTabs";
 import { SearchAndFilter } from "@/components/SearchAndFilter";
 import { EmployeeTable } from "@/components/EmployeeTable";
 import { PaginationControls } from "@/components/PaginationControls";
-import { CreateEmployeeModal } from "@/components/CreateEmployeeModal"; // Assuming you have these components
+import { CreateEmployeeModal } from "@/components/CreateEmployeeModal"; 
 import { EditEmployeeModal } from "@/components/EditEmployeeModal";
 import { SuccessToast } from "@/components/SuccessToast";
 import { User } from "@/components/types";
@@ -31,14 +31,14 @@ export default function EmployeePage() {
     const { users, deletedUsers, total, page, limit, deletedPage, status } = useSelector((state: RootState) => state.employees);
     const loading = status === 'loading';
 
-    // Local UI state
+
     const [activeTab, setActiveTab] = useState<'all' | 'deleted'>('all');
     const [searchQuery, setSearchQuery] = useState("");
     const [showCreateModal, setShowCreateModal] = useState(false);
     const [editModalUser, setEditModalUser] = useState<User | null>(null);
     const [showSuccessToast, setShowSuccessToast] = useState(false);
     
-    // Fetch employees when page or tab changes
+
     useEffect(() => {
         if (activeTab === 'all' && status === 'idle') {
             dispatch(fetchEmployees({ page, limit }));
@@ -50,7 +50,7 @@ export default function EmployeePage() {
         dispatch(fetchEmployees({ page, limit }));
     }, [page, dispatch, limit]);
 
-    // Handlers now dispatch Redux actions
+
     const handleCreateEmployee = (firstName: string, lastName: string): { success: boolean, error?: string } => {
         if (!firstName || !lastName) return { success: false, error: "Please enter both first and last name." };
         
@@ -66,7 +66,7 @@ export default function EmployeePage() {
             image: "",
             status: true,
             company: { name: "No Team", title: 'New Role', department: 'New Dept', },
-            role: '', department: '', teams: '' // for edit modal
+            role: '', department: '', teams: '' 
         };
         dispatch(addEmployee(newUser));
         return { success: true };
