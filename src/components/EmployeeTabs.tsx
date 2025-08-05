@@ -1,4 +1,4 @@
-// /app/employees/components/EmployeeTabs.tsx
+
 "use client";
 
 type EmployeeTabsProps = {
