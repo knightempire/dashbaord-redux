@@ -1,9 +1,9 @@
-// lib/redux/slices/employeesSlice.ts
+
 "use client";
 
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { User } from '@/components/types'; // Using the type from your components
+import { User } from '@/components/types'; 
 
 type EmployeesState = {
   users: User[];
@@ -27,14 +27,14 @@ const initialState: EmployeesState = {
   error: null,
 };
 
-// Async Thunk for fetching employees
+
 export const fetchEmployees = createAsyncThunk(
   'employees/fetchEmployees',
   async ({ page, limit }: { page: number, limit: number }) => {
     const response = await axios.get(`https://dummyjson.com/users?limit=${limit}&skip=${(page - 1) * limit}`);
     const usersWithStatus = response.data.users.map((u: any) => ({
       ...u,
-      status: Math.random() > 0.5, // true = Active, false = Inactive
+      status: Math.random() > 0.5, 
     }));
     return { users: usersWithStatus, total: response.data.total };
   }
@@ -51,7 +51,7 @@ const employeesSlice = createSlice({
       state.deletedPage = action.payload;
     },
     addEmployee: (state, action: PayloadAction<User>) => {
-      state.users.unshift(action.payload); // Add to the beginning
+      state.users.unshift(action.payload); 
       state.total += 1;
     },
     updateEmployee: (state, action: PayloadAction<User>) => {
