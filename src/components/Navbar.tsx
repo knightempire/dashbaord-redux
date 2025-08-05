@@ -1,4 +1,4 @@
-// Removed unused Badge and Button imports
+
 import { HiOutlineSearch, HiOutlineCog, HiOutlineBell } from "react-icons/hi";
 import Image from "next/image";
 
