@@ -1,4 +1,4 @@
-// /app/employees/components/CreateEmployeeModal.tsx
+
 "use client";
 
 import React, { useState } from 'react';
@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 type CreateModalProps = {
     show: boolean;
     onClose: () => void;
-    // This onSave function is provided by the parent and will dispatch to Redux
     onSave: (firstName: string, lastName:string) => { success: boolean, error?: string };
     setToast: (show: boolean) => void;
 };
@@ -18,7 +17,7 @@ export function CreateEmployeeModal({ show, onClose, onSave, setToast }: CreateM
     const [modalError, setModalError] = useState("");
 
     const handleSave = () => {
-        setModalError(""); // Clear previous errors
+        setModalError("");
         const result = onSave(firstName, lastName);
 
         if (result.success) {
