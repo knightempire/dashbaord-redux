@@ -39,9 +39,13 @@ export default function LoginPage() {
       console.log("Firebase JWT token:", token);
       console.log("User info:", userInfo);
       router.push("/dashboard"); 
-    } catch (error: any) {
+    } catch (error: unknown) {
       alert("Google login failed");
-      dispatch(loginFailure(error.message || "An unknown error occurred"));
+      if (error instanceof Error) {
+        dispatch(loginFailure(error.message));
+      } else {
+        dispatch(loginFailure("An unknown error occurred"));
+      }
     }
   };
 

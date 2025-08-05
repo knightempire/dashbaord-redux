@@ -32,7 +32,7 @@ export const fetchEmployees = createAsyncThunk(
   'employees/fetchEmployees',
   async ({ page, limit }: { page: number, limit: number }) => {
     const response = await axios.get(`https://dummyjson.com/users?limit=${limit}&skip=${(page - 1) * limit}`);
-    const usersWithStatus = response.data.users.map((u: any) => ({
+    const usersWithStatus = response.data.users.map((u: User) => ({
       ...u,
       status: Math.random() > 0.5, 
     }));

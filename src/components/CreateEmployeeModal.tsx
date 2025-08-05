@@ -47,7 +47,7 @@ export function CreateEmployeeModal({ show, onClose, onSave, setToast }: CreateM
         <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-40">
             <div className="bg-white rounded-xl shadow-lg w-full max-w-md p-8 relative border border-gray-200">
                 <h2 className="text-xl font-bold mb-2">Create Employee</h2>
-                <p className="text-sm text-gray-500 mb-6">You can create a profile here. Click save when you're done.</p>
+                <p className="text-sm text-gray-500 mb-6">You can create a profile here. Click save when you&apos;re done.</p>
                 <div className="mb-4">
                     <label className="block text-sm font-medium text-gray-700 mb-1">First Name</label>
                     <input type="text" className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#1a253c]" value={firstName} onChange={e => setFirstName(e.target.value)} placeholder="First Name"/>
