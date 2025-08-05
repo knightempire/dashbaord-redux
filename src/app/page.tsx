@@ -1,4 +1,4 @@
-// app/login/page.tsx
+
 "use client";
 import GoogleIcon from "../icons/GoogleIcon";
 import { auth, provider, signInWithPopup } from "../firebaseConfig";
@@ -38,18 +38,17 @@ export default function LoginPage() {
 
       console.log("Firebase JWT token:", token);
       console.log("User info:", userInfo);
-      router.push("/dashboard"); // Or your dashboard route
+      router.push("/dashboard"); 
     } catch (error: any) {
       alert("Google login failed");
       dispatch(loginFailure(error.message || "An unknown error occurred"));
     }
   };
 
-  // The rest of your JSX remains exactly the same
+
   return (
     <div className="min-h-screen w-full bg-white flex items-center justify-center px-2">
       <div className="flex flex-col md:flex-row w-full min-h-screen">
-        {/* Top: Image for mobile, Right: Image for desktop */}
         <div className="block md:hidden w-full mt-4">
           <div className="relative w-full h-[180px] sm:h-[240px] overflow-hidden rounded-xl">
             <Image
@@ -138,7 +137,7 @@ export default function LoginPage() {
               </button>
             </div>
             <p className="text-center text-xs text-gray-500 mt-4">
-              Don't you have an account?{" "}
+              Don&apos;t you have an account?{" "}
               <a
                 href="#"
                 className="text-blue-500 hover:underline"
