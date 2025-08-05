@@ -1,9 +1,9 @@
-// /app/employees/components/EditEmployeeModal.tsx
+
 "use client";
 
 import React, { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { User } from './types'; // Make sure the shared User type is imported
+import { User } from './types'; 
 
 type EditModalProps = {
     employee: User | null;
@@ -17,9 +17,8 @@ export function EditEmployeeModal({ employee, onClose, onSave, setToast }: EditM
     const [modalError, setModalError] = useState("");
 
     useEffect(() => {
-        // When the employee prop changes, update the local state for the form
         setEditData(employee);
-        setModalError(""); // Clear any previous errors
+        setModalError(""); 
     }, [employee]);
 
     if (!editData) return null;
@@ -29,7 +28,7 @@ export function EditEmployeeModal({ employee, onClose, onSave, setToast }: EditM
 
         setEditData(prev => {
             if (!prev) return null;
-            // Handle nested company object
+  
             if (name.startsWith('company.')) {
                 const companyField = name.split('.')[1] as keyof User['company'];
                 return {
@@ -37,7 +36,7 @@ export function EditEmployeeModal({ employee, onClose, onSave, setToast }: EditM
                     company: { ...prev.company, [companyField]: value }
                 }
             }
-            // Handle status boolean conversion
+        
             if (name === 'status') {
                 return {...prev, status: value === 'active'};
             }
