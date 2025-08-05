@@ -1,4 +1,4 @@
-// /app/employees/components/types.ts
+
 
 export type User = {
     id: number;
