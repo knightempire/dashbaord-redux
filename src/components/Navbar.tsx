@@ -16,7 +16,7 @@ export default function Navbar() {
         <HiOutlineCog className="w-5 h-5 text-gray-400" />
         <HiOutlineBell className="w-5 h-5 text-gray-400" />
         <div className="relative">
-          <Image src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" width={36} height={36} className="rounded-full border border-gray-200" />
+          <Image src="/user_profile.jpg" alt="User" width={36} height={36} className="rounded-full border border-gray-200" />
           <span className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 border-2 border-white rounded-full" />
         </div>
       </div>

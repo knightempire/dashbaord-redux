@@ -17,7 +17,7 @@ export default function AppShell({ children }: { children: React.ReactNode }) {
             <div className="w-full" style={{ height: 64, position: 'fixed', left: 260, right: 0, top: 0, zIndex: 10 }}>
               <Navbar />
             </div>
-            <main className="flex-1 bg-white p-4" style={{ paddingTop: 64, marginLeft: 20 }}>
+            <main className="flex-1 bg-white p-4" style={{ paddingTop: 72, marginLeft: 20 }}>
               {children}
             </main>
           </div>
