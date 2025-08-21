@@ -6,7 +6,7 @@ import employeesReducer from '@/lib/store/slices/employeesSlice'
 import authReducer from '@/lib/store/slices/authSlice'
 import Dashboard from '../dashboard/page'
 
-// Mock the fetch function
+
 global.fetch = jest.fn()
 
 const createMockStore = (initialState = {}) => {
@@ -42,7 +42,7 @@ const renderWithStore = (component: React.ReactElement, store = createMockStore(
   return render(<Provider store={store}>{component}</Provider>)
 }
 
-// Mock axios
+
 jest.mock('axios', () => ({
   get: jest.fn(() => Promise.resolve({
     data: {
@@ -73,10 +73,9 @@ describe('Dashboard Page', () => {
   test('renders dashboard with main components', async () => {
     renderWithStore(<Dashboard />)
     
-    // Check if main dashboard elements are present (the actual text is "Employees")
+
     expect(screen.getByText('Employees')).toBeInTheDocument()
-    
-    // Wait for data to load
+
     await waitFor(() => {
       expect(screen.getByText('All Employees')).toBeInTheDocument()
     })
@@ -135,7 +134,7 @@ describe('Dashboard Page', () => {
     
     renderWithStore(<Dashboard />, loadingStore)
     
-    // Check if the component renders without the loading text (since it may not be implemented)
+
     expect(screen.getByText('Employees')).toBeInTheDocument()
   })
 
@@ -155,8 +154,8 @@ describe('Dashboard Page', () => {
     
     renderWithStore(<Dashboard />, errorStore)
     
-    // The error handling might be implemented differently
-    // This test checks if the component can handle error state without crashing
+
+
     expect(screen.getByText('Employees')).toBeInTheDocument()
   })
 })
