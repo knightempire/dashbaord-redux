@@ -67,10 +67,9 @@ describe('authSlice', () => {
   })
 
   test('should handle loginFailure', () => {
-    // First set some state to verify it gets reset
+
     store.dispatch(loginSuccess({ user: mockUser, token: 'test-token' }))
-    
-    // Then dispatch login failure
+
     store.dispatch(loginFailure('Login failed'))
     
     const state = store.getState().auth
@@ -82,10 +81,9 @@ describe('authSlice', () => {
   })
 
   test('should handle logout', () => {
-    // First set authenticated state
+
     store.dispatch(loginSuccess({ user: mockUser, token: 'test-token' }))
-    
-    // Then logout
+
     store.dispatch(logout())
     
     const state = store.getState().auth
