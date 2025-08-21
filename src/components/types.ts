@@ -12,7 +12,6 @@ export type User = {
         department: string;
         name: string;
     };
-    // The following are added for the edit modal state
     role: string;
     department: string;
     teams: string;
