@@ -31,13 +31,12 @@ describe('SearchAndFilter Component Tests', () => {
     cy.mount(<SearchAndFilter {...mockProps} />)
     
     cy.contains('Filter').should('be.visible').click()
-    // Filter button should be clickable (even if no functionality is implemented yet)
+
   })
 
   it('has proper search icon', () => {
     cy.mount(<SearchAndFilter {...mockProps} />)
-    
-    // Check if search icon is present (SVG element)
+
     cy.get('svg').should('exist')
   })
 
