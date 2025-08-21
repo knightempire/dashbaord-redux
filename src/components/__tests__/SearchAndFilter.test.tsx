@@ -54,7 +54,7 @@ describe('SearchAndFilter', () => {
   test('search input has search icon', () => {
     render(<SearchAndFilter {...mockProps} />)
     
-    // Check if the magnifying glass icon is present (it's rendered as SVG)
+
     const searchContainer = screen.getByRole('textbox').closest('div')
     expect(searchContainer).toBeInTheDocument()
   })
@@ -66,7 +66,7 @@ describe('SearchAndFilter', () => {
     const filterButton = screen.getByText('Filter')
     expect(filterButton).toBeEnabled()
     await user.click(filterButton)
-    // Filter button doesn't have functionality yet, but should be clickable
+
   })
 
   test('search input updates correctly when query changes', () => {
