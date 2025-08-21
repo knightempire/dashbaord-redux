@@ -126,7 +126,7 @@ describe('CreateEmployeeModal', () => {
     const saveButton = screen.getByText('Save changes')
     await user.click(saveButton)
     
-    // Should call setToast and close after timeout
+
     expect(mockProps.setToast).toHaveBeenCalledWith(true)
     
     await waitFor(() => {
