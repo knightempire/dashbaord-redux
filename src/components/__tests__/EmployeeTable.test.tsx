@@ -7,7 +7,7 @@ import authReducer from '@/lib/store/slices/authSlice'
 import { EmployeeTable } from '../EmployeeTable'
 import { User } from '../types'
 
-// Mock data
+
 const mockUsers: User[] = [
   {
     id: 1,
@@ -164,7 +164,7 @@ describe('EmployeeTable', () => {
   })
 
   test('search functionality works with different fields', () => {
-    // Test search by email
+
     renderWithStore(<EmployeeTable {...mockProps} searchQuery="jane.smith" />)
     expect(screen.getByText('Jane Smith')).toBeInTheDocument()
     expect(screen.queryByText('John Doe')).not.toBeInTheDocument()
