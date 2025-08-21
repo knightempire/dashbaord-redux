@@ -1,6 +1,6 @@
 import '@testing-library/jest-dom'
 
-// Mock Next.js router
+// Next.js router mock
 jest.mock('next/navigation', () => ({
   useRouter() {
     return {
@@ -29,13 +29,13 @@ jest.mock('next/navigation', () => ({
   },
 }))
 
-// Mock Firebase
+// Firebase mock
 jest.mock('./src/firebaseConfig', () => ({
   auth: {},
   db: {},
 }))
 
-// Mock Redux store
+// Redux store mock
 const mockStore = {
   getState: jest.fn(() => ({
     employees: {
@@ -72,15 +72,15 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
   disconnect: jest.fn(),
 }))
 
-// Mock window.matchMedia
+// Window.matchMedia mock
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: jest.fn().mockImplementation(query => ({
     matches: false,
     media: query,
     onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
+    addListener: jest.fn(),
+    removeListener: jest.fn(),
     addEventListener: jest.fn(),
     removeEventListener: jest.fn(),
     dispatchEvent: jest.fn(),
