@@ -19,7 +19,7 @@ describe('PaginationControls', () => {
   test('renders pagination information', () => {
     render(<PaginationControls {...mockProps} />)
     
-    // Check for page numbers
+
     expect(screen.getByText('1')).toBeInTheDocument()
   })
 
@@ -81,7 +81,7 @@ describe('PaginationControls', () => {
     const user = userEvent.setup()
     render(<PaginationControls {...mockProps} />)
     
-    // Click on page 3
+
     const pageButton = screen.getByText('3')
     await user.click(pageButton)
     
