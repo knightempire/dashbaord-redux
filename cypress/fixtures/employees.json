@@ -1,0 +1,85 @@
+{
+  "employees": [
+    {
+      "id": 1,
+      "firstName": "John",
+      "lastName": "Doe",
+      "email": "john.doe@example.com",
+      "image": "https://i.pravatar.cc/150?img=1",
+      "status": true,
+      "company": {
+        "title": "Software Engineer",
+        "department": "Engineering",
+        "name": "Tech Corp"
+      },
+      "role": "Software Engineer",
+      "department": "Engineering",
+      "teams": "Frontend"
+    },
+    {
+      "id": 2,
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "email": "jane.smith@example.com",
+      "image": "https://i.pravatar.cc/150?img=2",
+      "status": true,
+      "company": {
+        "title": "Product Manager",
+        "department": "Product",
+        "name": "Tech Corp"
+      },
+      "role": "Product Manager",
+      "department": "Product",
+      "teams": "Product Team"
+    },
+    {
+      "id": 3,
+      "firstName": "Bob",
+      "lastName": "Johnson",
+      "email": "bob.johnson@example.com",
+      "image": "https://i.pravatar.cc/150?img=3",
+      "status": false,
+      "company": {
+        "title": "Designer",
+        "department": "Design",
+        "name": "Tech Corp"
+      },
+      "role": "Designer",
+      "department": "Design",
+      "teams": "UI/UX"
+    },
+    {
+      "id": 4,
+      "firstName": "Alice",
+      "lastName": "Williams",
+      "email": "alice.williams@example.com",
+      "image": "https://i.pravatar.cc/150?img=4",
+      "status": true,
+      "company": {
+        "title": "DevOps Engineer",
+        "department": "Engineering",
+        "name": "Tech Corp"
+      },
+      "role": "DevOps Engineer",
+      "department": "Engineering",
+      "teams": "Infrastructure"
+    },
+    {
+      "id": 5,
+      "firstName": "Charlie",
+      "lastName": "Brown",
+      "email": "charlie.brown@example.com",
+      "image": "https://i.pravatar.cc/150?img=5",
+      "status": true,
+      "company": {
+        "title": "Marketing Manager",
+        "department": "Marketing",
+        "name": "Tech Corp"
+      },
+      "role": "Marketing Manager",
+      "department": "Marketing",
+      "teams": "Growth"
+    }
+  ],
+  "total": 5
+}
