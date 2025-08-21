@@ -1,9 +1,7 @@
-// app/layout.tsx
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import AppShell from "./AppShell"; // Assuming AppShell is a component you've created
+import AppShell from "./AppShell";
 import ReduxProvider from "@/lib/store/provider";
 
 const geistSans = Geist({
@@ -27,11 +25,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased min-h-screen bg-white`}
       >
-        {/*
-          The ReduxProvider is placed at the top level of the component tree.
-          This ensures that all components, no matter how deeply nested,
-          can access the Redux store.
-        */}
         <ReduxProvider>
           <AppShell>{children}</AppShell>
         </ReduxProvider>
