@@ -34,7 +34,6 @@ export function CreateEmployeeModal({ show, onClose, onSave, setToast }: CreateM
     };
     
     const handleClose = () => {
-        // Reset state on close
         setFirstName("");
         setLastName("");
         setModalError("");
