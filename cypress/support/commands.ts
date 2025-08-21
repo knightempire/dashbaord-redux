@@ -1,24 +1,10 @@
-// ***********************************************************
-// This example support/commands.ts file is processed and
-// loaded automatically before your test files.
-//
-// This is a great place to put global configuration and
-// behavior that modifies Cypress.
-//
-// You can change the location of this file or turn off
-// automatically serving support files with the
-// 'supportFile' configuration option.
-//
-// You can read more here:
-// https://on.cypress.io/configuration
-// ***********************************************************
 
-// Custom command to get element by data-testid
+
 Cypress.Commands.add('getByTestId', (testId: string) => {
   return cy.get(`[data-testid="${testId}"]`)
 })
 
-// Custom command to login (if authentication is implemented)
+// Login command for authentication
 Cypress.Commands.add('login', (email: string, password: string) => {
   cy.visit('/login')
   cy.get('[data-testid="email-input"]').type(email)
@@ -26,19 +12,17 @@ Cypress.Commands.add('login', (email: string, password: string) => {
   cy.get('[data-testid="login-button"]').click()
 })
 
-// Custom command to wait for API responses
 Cypress.Commands.add('waitForAPI', () => {
   cy.intercept('GET', '**/users**').as('getUsers')
   cy.wait('@getUsers')
 })
 
-// Custom command to seed test data
+// Seed test data
 Cypress.Commands.add('seedEmployees', () => {
-  // Mock employee data for testing
   cy.intercept('GET', '**/users**', { fixture: 'employees.json' }).as('getEmployees')
 })
 
-// Custom command to clear all data
+// Clear all data
 Cypress.Commands.add('clearData', () => {
   cy.window().then((win) => {
     win.localStorage.clear()
@@ -46,7 +30,6 @@ Cypress.Commands.add('clearData', () => {
   })
 })
 
-// Example: Add data-testid to elements during testing
 Cypress.Commands.add('addTestIds', () => {
   cy.get('button').each(($btn, index) => {
     cy.wrap($btn).invoke('attr', 'data-testid', `button-${index}`)
