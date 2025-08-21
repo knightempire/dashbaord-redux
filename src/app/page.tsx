@@ -18,11 +18,11 @@ export default function LoginPage() {
   const { loading } = useSelector((state: RootState) => state.auth);
 
   const handleGoogleLogin = async () => {
-    dispatch(setAuthLoading(true)); // Dispatch loading action
+    dispatch(setAuthLoading(true));
     try {
       const result = await signInWithPopup(auth, provider);
       const user = result.user;
-      const token = await user.getIdToken(); // Firebase JWT
+      const token = await user.getIdToken();
       
       const userInfo = {
         uid: user.uid,
