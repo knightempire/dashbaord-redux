@@ -51,15 +51,13 @@ describe('EmployeeTable Component Tests', () => {
 
   it('renders employee table with data', () => {
     cy.mount(<EmployeeTable {...mockProps} />)
-    
-    // Check table headers
+
     cy.contains('Name').should('be.visible')
     cy.contains('Employee ID').should('be.visible')
     cy.contains('Role').should('be.visible')
     cy.contains('Status').should('be.visible')
     cy.contains('Teams').should('be.visible')
-    
-    // Check employee data
+
     cy.contains('John Doe').should('be.visible')
     cy.contains('Jane Smith').should('be.visible')
     cy.contains('Software Engineer').should('be.visible')
@@ -102,11 +100,9 @@ describe('EmployeeTable Component Tests', () => {
 
   it('has functioning checkboxes', () => {
     cy.mount(<EmployeeTable {...mockProps} />)
-    
-    // Check if checkboxes exist
+
     cy.get('input[type="checkbox"]').should('exist')
-    
-    // Test header checkbox
+
     cy.get('thead input[type="checkbox"]').first().check()
     cy.get('thead input[type="checkbox"]').first().should('be.checked')
   })
