@@ -50,7 +50,7 @@ describe('utils', () => {
     })
 
     test('handles tailwind merge functionality', () => {
-      // This tests the tailwind-merge functionality
+
       const result = cn('px-2 py-1', 'px-4')
       // tailwind-merge should remove conflicting classes
       expect(result).toBe('py-1 px-4')
