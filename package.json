@@ -10,7 +10,14 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "test:ci": "jest --ci --coverage --watchAll=false"
+    "test:ci": "jest --ci --coverage --watchAll=false",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run",
+    "cypress:headless": "cypress run --headless",
+    "test:e2e": "start-server-and-test dev 3000 cypress:run",
+    "test:e2e:open": "start-server-and-test dev 3000 cypress:open",
+    "test:component": "cypress run --component",
+    "test:all": "npm test && npm run test:component"
   },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.10",
@@ -31,6 +38,8 @@
     "tailwind-merge": "^3.3.1"
   },
   "devDependencies": {
+    "@cypress/react": "^9.0.1",
+    "@cypress/webpack-preprocessor": "^7.0.1",
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
     "@testing-library/jest-dom": "^6.7.0",
@@ -40,10 +49,12 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "cypress": "^15.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.4.5",
     "jest": "^30.0.5",
     "jest-environment-jsdom": "^30.0.5",
+    "start-server-and-test": "^2.0.13",
     "tailwindcss": "^4",
     "ts-jest": "^29.4.1",
     "tw-animate-css": "^1.3.6",
