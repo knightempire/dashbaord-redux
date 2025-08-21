@@ -12,7 +12,6 @@ import { EditEmployeeModal } from "@/components/EditEmployeeModal";
 import { SuccessToast } from "@/components/SuccessToast";
 import { User } from "@/components/types";
 
-// Redux Imports
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState, AppDispatch } from '@/lib/store/store';
 import { 
@@ -59,7 +58,7 @@ export default function EmployeePage() {
         if (exists) return { success: false, error: "Employee name already exists." };
 
         const newUser: User = {
-            id: Date.now(), // Use a temporary ID
+            id: Date.now(),
             firstName,
             lastName,
             email: `${firstName.toLowerCase()}.${lastName.toLowerCase()}@example.com`,
