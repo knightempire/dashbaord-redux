@@ -9,7 +9,6 @@ import employeesReducer, {
 } from '../employeesSlice'
 import { User } from '@/components/types'
 
-// Mock axios
 jest.mock('axios')
 
 const mockUser: User = {
@@ -94,10 +93,9 @@ describe('employeesSlice', () => {
   })
 
   test('should handle updateEmployee for existing user', () => {
-    // First add a user
+
     store.dispatch(addEmployee(mockUser))
-    
-    // Then update the user
+
     const updatedUser = { ...mockUser, firstName: 'Johnny' }
     store.dispatch(updateEmployee(updatedUser))
     
@@ -106,11 +104,10 @@ describe('employeesSlice', () => {
   })
 
   test('should handle updateEmployee for deleted user', () => {
-    // First add and delete a user
+
     store.dispatch(addEmployee(mockUser))
     store.dispatch(deleteEmployee(mockUser))
-    
-    // Then update the deleted user
+
     const updatedUser = { ...mockUser, firstName: 'Johnny' }
     store.dispatch(updateEmployee(updatedUser))
     
@@ -119,11 +116,10 @@ describe('employeesSlice', () => {
   })
 
   test('should handle deleteEmployee', () => {
-    // First add a user
+
     store.dispatch(addEmployee(mockUser))
     store.dispatch(addEmployee(mockUser2))
-    
-    // Then delete one user
+
     store.dispatch(deleteEmployee(mockUser))
     
     const state = store.getState().employees
