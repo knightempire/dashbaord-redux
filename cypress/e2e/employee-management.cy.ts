@@ -1,6 +1,6 @@
 describe('Employee Management E2E Tests', () => {
   beforeEach(() => {
-    // Mock API responses
+
     cy.intercept('GET', '**/users**', { fixture: 'employees.json' }).as('getEmployees')
     cy.visit('/dashboard')
     cy.wait('@getEmployees')
@@ -8,7 +8,7 @@ describe('Employee Management E2E Tests', () => {
 
   describe('Employee CRUD Operations', () => {
     it('should create a new employee successfully', () => {
-      // Open create modal
+
       cy.contains('New Employee').click()
       cy.contains('Create Employee').should('be.visible')
       
@@ -24,13 +24,12 @@ describe('Employee Management E2E Tests', () => {
     })
 
     it('should handle create employee form validation', () => {
-      // Open create modal
+
       cy.contains('New Employee').click()
       
       // Try to submit empty form
       cy.contains('Save changes').click()
-      
-      // Should show validation or stay open
+
       cy.contains('Create Employee').should('be.visible')
       
       // Fill only first name
@@ -58,8 +57,7 @@ describe('Employee Management E2E Tests', () => {
           
           // Save changes
           cy.contains('Save').click()
-          
-          // Should reflect changes
+
           cy.contains('Johnny Doe').should('be.visible')
         }
       })
@@ -82,8 +80,7 @@ describe('Employee Management E2E Tests', () => {
             if ($body.find(':contains("Confirm")').length > 0) {
               cy.contains('Confirm').click()
             }
-            
-            // Check if employee is removed from active list
+
             cy.get('tbody tr').should('have.length', initialCount - 1)
             
             // Switch to deleted tab to verify
@@ -147,15 +144,14 @@ describe('Employee Management E2E Tests', () => {
 
   describe('Tab Navigation', () => {
     it('should switch between All and Deleted employees', () => {
-      // Should start on All Employees
+
       cy.contains('All Employees').should('have.class', 'text-[#1a253c]')
       cy.contains('John Doe').should('be.visible')
       
       // Switch to Deleted
       cy.contains('Deleted Employees').click()
       cy.contains('Deleted Employees').should('have.class', 'text-[#1a253c]')
-      
-      // Should show appropriate message or deleted employees
+
       cy.get('body').then(($body) => {
         if ($body.find(':contains("No deleted employees")').length > 0) {
           cy.contains('No deleted employees').should('be.visible')
@@ -170,20 +166,18 @@ describe('Employee Management E2E Tests', () => {
 
   describe('UI Interactions', () => {
     it('should handle dropdown menus', () => {
-      // Test action dropdown if it exists
+
       cy.get('tbody tr').first().within(() => {
         cy.get('button').last().as('actionButton')
       })
       
       cy.get('@actionButton').click()
-      
-      // Check if dropdown appears
+
       cy.get('body').then(($body) => {
         if ($body.find('[role="menu"]').length > 0 || $body.find('.dropdown').length > 0) {
           // Dropdown should be visible
           cy.get('[role="menu"], .dropdown').should('be.visible')
-          
-          // Click outside to close
+
           cy.get('body').click(0, 0)
           cy.get('[role="menu"], .dropdown').should('not.exist')
         }
@@ -191,7 +185,7 @@ describe('Employee Management E2E Tests', () => {
     })
 
     it('should handle checkboxes', () => {
-      // Test header checkbox
+
       cy.get('thead input[type="checkbox"]').first().as('headerCheckbox')
       cy.get('@headerCheckbox').check()
       
@@ -204,11 +198,10 @@ describe('Employee Management E2E Tests', () => {
     })
 
     it('should export employees', () => {
-      // Click export button
+
       cy.contains('Export').click()
-      
-      // Should trigger download or show export modal
-      // This test will pass even if export isn't fully implemented
+
+
       cy.contains('Export').should('be.visible')
     })
   })
