@@ -99,8 +99,7 @@ describe('CreateEmployeeModal Component Tests', () => {
     // Fill form
     cy.get('input[placeholder="First Name"]').type('John')
     cy.get('input[placeholder="Last Name"]').type('Doe')
-    
-    // Close modal
+
     cy.contains('Cancel').click()
     
     // Reopen modal (simulate by remounting)
