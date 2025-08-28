@@ -1,5 +1,13 @@
 import '@testing-library/jest-dom'
 
+// Fix for jsdom and saxes compatibility issue
+process.env.NODE_ENV = 'test'
+
+import '@testing-library/jest-dom'
+
+// Fix for jsdom and saxes compatibility issue
+process.env.NODE_ENV = 'test'
+
 // Next.js router mock
 jest.mock('next/navigation', () => ({
   useRouter() {
@@ -64,25 +72,3 @@ jest.mock('react-redux', () => ({
   useSelector: jest.fn((selector) => selector(mockStore.getState())),
   useDispatch: () => mockStore.dispatch,
 }))
-
-// Global test setup
-global.ResizeObserver = jest.fn().mockImplementation(() => ({
-  observe: jest.fn(),
-  unobserve: jest.fn(),
-  disconnect: jest.fn(),
-}))
-
-// Window.matchMedia mock
-Object.defineProperty(window, 'matchMedia', {
-  writable: true,
-  value: jest.fn().mockImplementation(query => ({
-    matches: false,
-    media: query,
-    onchange: null,
-    addListener: jest.fn(),
-    removeListener: jest.fn(),
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
-  })),
-})
